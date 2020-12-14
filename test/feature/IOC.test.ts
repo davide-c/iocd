@@ -5,12 +5,12 @@ import { Passport } from '../__mock__/Passport';
 import { User } from '../__mock__/User';
 
 describe('IOC features', () => {
-  beforeEach(async () => {
+  beforeEach(() => {
     container.reset();
   });
 
   describe('Create an object by recursively resolving instances (registered manually and auto)', () => {
-    it('it should resolve an object with multiple dependencies', async () => {
+    it('it should resolve an object with multiple dependencies', () => {
       container.registerInstance(Passport, new Passport(12345678));
 
       const resolved = container.resolve(User);
@@ -33,14 +33,14 @@ describe('IOC features', () => {
       expect(() => container.resolve(A)).toThrowError();
     });
 
-    it('it should resolve an entity through a registered factory', async () => {
+    it('it should resolve an entity through a registered factory', () => {
       container.registerFactory(A, AFactory);
       const resolved = container.resolve(A);
       expect(resolved).toEqual({ a: 7, b: 11 });
       expect(resolved.constructor).toBe(A);
     });
 
-    it('it should resolve and run a registered factory as a dependency', async () => {
+    it('it should resolve and run a registered factory as a dependency', () => {
       container.registerFactory(A, AFactory);
 
       @injectable()
