@@ -1,10 +1,11 @@
 # iocd
-This is a simple IoC/DI implementation.
+This is a simple **IoC/DI** implementation.
+The api is similar to tsyringe's.
 
 &nbsp;
 
 ## How it works
-A default `Container` instance named `container` in exported by the library.
+A default `Container` instance named `container` is exported by the library.
 
 Calling the `container.resolve(ClassName)` method will attempt to resolve or construct the requested instance with its dependencies through one of the available sources:
 
@@ -14,7 +15,7 @@ Calling the `container.resolve(ClassName)` method will attempt to resolve or con
 
 &nbsp;
   
-### **Instances**
+## Instances
 A class instance can be registered with the `container.registerInstance` method:
 
 ```
@@ -24,7 +25,7 @@ The first argument of  can either be a class constructor or a string.
 
 &nbsp;
 
-### **Factories**
+## Factories
 A class factory can be registered with the `container.registerFactory` method:
 
 ```
@@ -34,7 +35,7 @@ The first argument of  can either be a class constructor or a string.
 
 &nbsp;
 
-### **Constructors**
+## Constructors
 The library can auto register classes through the following options:
 * manually: `ConstructorsDictionary.add(YourClassConstructor)`
 * or through the class decorator: `@injectable()`
@@ -43,6 +44,22 @@ The library can auto register classes through the following options:
 &nbsp;
 
 ## Decorators
-### **injectable**
+### injectable
 Classes decorated with `injectable` will be resolved given their dependencies are registered / can be provided through one of the available sources.
+
+
+## Tests:
+```bash
+# Unit and feature tests can be executed by running:
+npm run test 
+
+# watch:
+npm run test:watch
+
+# verbose output
+npm run test:loud
+
+# both
+npm run test:watch:loud
+```
 
