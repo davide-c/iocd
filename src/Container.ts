@@ -1,23 +1,10 @@
 import 'reflect-metadata';
 import { BaseDictionary } from './dictionaries/BaseDictionary';
 import { ConstructorsDictionary } from './dictionaries/ConstructorsDictionary';
-
-export interface IOCContainer {
-  registerInstance<T>(token: InjectionToken, value: T): void;
-  registerFactory<T>(token: InjectionToken, value: () => T): void;
-  // TODO: isRegistered
-  resolve<T>(token: InjectionToken<T>): T;
-  getChildContainer(): IOCContainer;
-  reset(): void;
-}
-
-export type Constructor<T = any> = { new (...args: any[]): T };
-
-export type InjectionToken<T = any> = Constructor<T> | string;
-
-export const getToken = (t: InjectionToken): string => {
-  return typeof t === 'string' ? t : (t.prototype.constructor.name as string);
-};
+import { Constructor } from './types/Constructor';
+import { InjectionToken } from './types/InjectionToken';
+import { IOCContainer } from './types/IOCContainer';
+import { Utils } from './utils';
 
 export class GenericDictionary extends BaseDictionary<any> {}
 
@@ -31,11 +18,11 @@ export class Container implements IOCContainer {
   }
 
   public registerInstance<T>(tokenOrRef: InjectionToken, value: T): void {
-    this.instances.set(getToken(tokenOrRef), value);
+    this.instances.set(Utils.getToken(tokenOrRef), value);
   }
 
   public registerFactory<T>(tokenOrRef: InjectionToken, value: () => T): void {
-    this.factories.set(getToken(tokenOrRef), value);
+    this.factories.set(Utils.getToken(tokenOrRef), value);
   }
 
   public isRegistered(): void {
@@ -43,8 +30,7 @@ export class Container implements IOCContainer {
   }
 
   public resolve<T>(tokenOrRef: InjectionToken<T>): T {
-    // TODO: split into smaller ones
-    const token = getToken(tokenOrRef);
+    const token = Utils.getToken(tokenOrRef);
 
     const resolvedInstance = this.instances.get(token);
 
@@ -65,7 +51,7 @@ export class Container implements IOCContainer {
       throw new Error(`Unable to resolve class \`${token}\``);
     }
 
-    // Auto constr attempt:
+    // Auto construction attempt: (TODO: move into separated method)
     const params = Reflect.getMetadata('design:paramtypes', classRef);
 
     const args = params.map((p: Constructor) => {

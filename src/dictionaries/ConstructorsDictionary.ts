@@ -1,5 +1,6 @@
+import { InjectionToken } from '../types/InjectionToken';
+import { Utils } from '../utils';
 import { BaseDictionary } from './BaseDictionary';
-import { InjectionToken, getToken } from '../Container';
 
 export class ConstructorsDictionary extends BaseDictionary<any> {
   private static instance: ConstructorsDictionary;
@@ -25,6 +26,6 @@ export class ConstructorsDictionary extends BaseDictionary<any> {
   }
 
   public static add<T = any>(t: InjectionToken) {
-    return this.getInstance().set(getToken(t), t);
+    return this.getInstance().set(Utils.getToken(t), t);
   }
 }
