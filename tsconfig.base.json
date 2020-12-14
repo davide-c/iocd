@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es5",
+    "sourceMap": true,
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "declaration": true,
+    "removeComments": true,
+    "noImplicitReturns": false,
+    "esModuleInterop": true,
+    "noUnusedLocals": false,
+    "strict": true,
+    "emitDecoratorMetadata": true,
+    "lib": ["es6", "es7", "dom", "esnext", "DOM"]
+  }
+}

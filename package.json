@@ -1,0 +1,31 @@
+{
+  "name": "iocd",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rm -rf ./dist",
+    "build": "tsc",
+    "build-lib": "tsc --outDir ./lib",
+    "build-watch": "tsc -w",
+    "build-watch-lib": "tsc -w --outDir ./lib --project tsconfig.build.json",
+    "run": "nodemon ./dist/index.js",
+    "dev": "concurrently --raw \"npm:build-watch\" \"npm:run\"",
+    "test:watch": "jest --watch --runInBand --silent",
+    "test:watch:loud": "jest --watch --runInBand"
+  },
+  "author": "Davide Cutrino",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^5.3.0",
+    "nodemon": "^2.0.6",
+    "reflect-metadata": "^0.1.13",
+    "typescript": "3.7.2"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.2",
+    "jest": "^24.0.2",
+    "ts-jest": "^26.4.4"
+  }
+}
